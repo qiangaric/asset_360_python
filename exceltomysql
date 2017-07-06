@@ -7,19 +7,19 @@ import datetime
 #文件夹路径，文件夹中文件名中不能有空格，最好是英文
 dir='C:/Users/Administrator/Desktop/data_for_test'
 #表名
-tableName='tmp_aaabaaab'
+tableName='tmp_awwaaaab'
 #############################################################
 #csv入库
 def csvToMysql(filename):
     starttime = datetime.datetime.now()
-    host='rm-8vb5xu1hy7a1ng51po.mysql.zhangbei.rds.aliyuncs.com'
+    host=''
     port='3306'
     use_name='monitor'
-    pass_word='gaojinqiang123!@#'
+    pass_word=''
     db='test'
     dbh = sqlalchemy.create_engine('mysql+pymysql://'+use_name+':'+pass_word+'@'+host+':'+port+'/'+db+'?charset=utf8')  
     print('get file:',filename)
-    df=pd.read_excel(filename,skiprows=[0])
+    df=pd.read_excel(filename)
     csv_rows_num=df.shape[0]
     pd.io.sql.to_sql(df,tableName, dbh,if_exists='append',index=False) 
     endtime = datetime.datetime.now()
@@ -32,6 +32,8 @@ def findFlie(dir):
     for filename in list:
         if filename[-4:]=='xlsx' or filename[-3:]=='xls':
             print(filename)
-            csvToMysql(dir+'/'+filename)
+            csvToMysql(dir + '/' + filename)
+        else:
+            print('the file cannot find')
 
 findFlie(dir)
