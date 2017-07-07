@@ -1,0 +1,54 @@
+# coding:utf-8
+import sys, os
+
+import  os, sys, pymysql
+conn= pymysql.connect(
+        host='',
+        port = 3339,
+        user='monitor',
+        passwd='gaojinqiang',
+        db ='data_model_team',
+        charset="utf8"
+        )
+cur = conn.cursor()
+sql='''
+    SELECT
+	    *
+    FROM
+	    st_rpt_cc_jihe
+    WHERE
+	    stat_date = '2017-07-06'
+'''
+content = cur.execute(sql)
+print(content)
+content01 = cur.fetchmany(content)
+print(content01)
+insertsql ='''
+insert into tmp_topfive_st_rpt_cc_jihe values '{0}'
+'''
+
+a = []
+b = {}
+for i in content01:
+    if i[4] in b.keys():
+        b[i[4]] += 1
+    else:
+        b[i[4]] = 1
+
+    if  b[i[4]] <= 5:
+        a.append(i)
+    else:
+        continue
+print(a)
+for values in a:
+    #print(values)
+    print("insert into tmp_topfive_st_rpt_cc_jihe values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}',"
+          "'{7}','{8}','{9}','{10}','{11}','{12}','{13}')".format(values[0],values[1],values[2],values[3],
+          values[4], values[5], values[6], values[7],values[8],values[9],values[10],values[11], values[12],values[13]                                                 ))
+    cur.execute("insert into tmp_topfive_st_rpt_cc_jihe values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}',"
+          "'{7}','{8}','{9}','{10}','{11}','{12}','{13}')".format(values[0],values[1],values[2],values[3],
+          values[4], values[5], values[6], values[7],values[8],values[9],values[10],values[11],values[12],values[13]))
+
+cur.close()
+conn.commit()
+conn.close()
