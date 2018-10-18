@@ -4,10 +4,10 @@ import sys, os
 import  os, sys, pymysql
 conn= pymysql.connect(
         host='',
-        port = 3339,
-        user='monitor',
-        passwd='gaojinqiang',
-        db ='data_model_team',
+        port = ,
+        user='',
+        passwd='',
+        db ='',
         charset="utf8"
         )
 cur = conn.cursor()
