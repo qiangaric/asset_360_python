@@ -13,8 +13,8 @@ tableName='tmp_awwaaaab'
 def csvToMysql(filename):
     starttime = datetime.datetime.now()
     host=''
-    port='3306'
-    use_name='monitor'
+    port=' '
+    use_name=' '
     pass_word=''
     db='test'
     dbh = sqlalchemy.create_engine('mysql+pymysql://'+use_name+':'+pass_word+'@'+host+':'+port+'/'+db+'?charset=utf8')  
